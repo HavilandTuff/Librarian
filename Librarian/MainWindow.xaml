@@ -1,0 +1,45 @@
+﻿<Window x:Class="Librarian.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Librarian"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="756" Width="1024" Loaded="Window_Loaded">
+    <Window.Resources>
+        <CollectionViewSource x:Key="bookViewSource" d:DesignSource="{d:DesignInstance {x:Type local:Book}, CreateList=True}"/>
+    </Window.Resources>
+    <Grid Background="AliceBlue">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0" IsMainMenu="True">
+            <MenuItem Header="_Plik">
+                <MenuItem Header="_Nowa książka"/>
+                <MenuItem Header="_Usuń książkę"/>
+                <MenuItem Header="_Edytuj wpis"/>
+                <Separator/>
+                <MenuItem Header="_Zakończ"/>
+            </MenuItem>
+        </Menu>
+        <Grid Grid.Row="1" Background="Blue" DataContext="{StaticResource bookViewSource}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="300"/>
+            </Grid.ColumnDefinitions>
+            <DataGrid x:Name="bookDataGrid"
+                      AutoGenerateColumns="False" 
+                      EnableRowVirtualization="True" 
+                      ItemsSource="{Binding}" 
+                      Margin="10" 
+                      RowDetailsVisibilityMode="VisibleWhenSelected"/>
+        </Grid>
+        <Button Grid.Row="2" Content="Dodaj książkę" Width="100" HorizontalAlignment="Left"/>
+        <Button Grid.Row="2" Content="Edytuj wpis" Width="100" HorizontalAlignment="Center" />
+        <Button Grid.Row="2" Content="Usuń książkę" Width="100" HorizontalAlignment="Right"/>
+
+
+    </Grid>
+</Window>
